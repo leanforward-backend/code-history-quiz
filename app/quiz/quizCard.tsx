@@ -41,7 +41,7 @@ export const QuizCard = () => {
     setCurrentIndex((prev) => prev + 1);
     setUserAnswer(null);
     rotateY.set(0);
-    x.set(-500);
+    x.set(-400);
     opacity.set(1);
 
     await animate(x, 0, { duration: 0.5, ease: "easeOut" });
@@ -57,7 +57,7 @@ export const QuizCard = () => {
           opacity,
           transformStyle: "preserve-3d",
         }}
-        className="relative w-160 h-160"
+        className="relative w-full max-w-[40rem] aspect-square"
       >
         <div
           className="absolute w-full h-full backface-hidden"
@@ -68,22 +68,22 @@ export const QuizCard = () => {
               <CardTitle className="text-center text-2xl font-bold mb-8">
                 Question {currentIndex + 1}
               </CardTitle>
-              <CardDescription className="text-center text-3xl text-purple-900 mb-2">
+              <CardDescription className="text-center text-3xl text-background mb-2">
                 {currentQuestion.question}
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <div className="flex flex-row gap-1 w-full justify-center align-bottom pt-70">
+            <CardContent className="h-full flex flex-col justify-end">
+              <div className="flex flex-row gap-1 w-full justify-center">
                 <Button
                   variant="outline"
-                  className="w-1/2 bg-red-400 text-white text-4xl h-30 hover:bg-red-500 hover:text-white"
+                  className="w-1/2 bg-primary text-white text-4xl h-30 hover:bg-primary/90 hover:text-white"
                   onClick={() => handleAnswer(true)}
                 >
                   TRUE
                 </Button>
                 <Button
                   variant="outline"
-                  className="w-1/2 bg-red-400 text-white text-4xl h-30 hover:bg-red-500 hover:text-white"
+                  className="w-1/2 bg-primary text-white text-4xl h-30 hover:bg-primary/90 hover:text-white"
                   onClick={() => handleAnswer(false)}
                 >
                   FALSE

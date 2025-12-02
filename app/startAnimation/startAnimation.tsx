@@ -1,3 +1,4 @@
+import { Card } from "@/components/ui/card";
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { QuizCard } from "../quiz/quizCard";
@@ -20,21 +21,23 @@ export const StartAnimation = () => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center w-full h-screen bg-black">
-      <h2 className="text-purple-700 px-4 py-2 rounded text-8xl font-bold mb-8">
-        READY?
-      </h2>
-      {index >= countdown.length && <QuizCard />}
-      <motion.span
-        key={countdown[index]}
-        initial={{ scale: 4.5, opacity: 1 }}
-        animate={{ scale: 1.5, opacity: 0.7 }}
-        exit={{ scale: 0.1, opacity: 0 }}
-        transition={{ duration: 0.5 }}
-        className="text-white text-9xl font-black"
-      >
-        {countdown[index]}
-      </motion.span>
+    <div className="w-full flex justify-center">
+      <Card className="w-full max-w-[40rem] aspect-square flex flex-col justify-center items-center overflow-hidden">
+        <h2 className="text-background px-4 py-2 rounded text-8xl font-bold mb-8">
+          READY?
+        </h2>
+        {index >= countdown.length && <QuizCard />}
+        <motion.span
+          key={countdown[index]}
+          initial={{ scale: 4.5, opacity: 1 }}
+          animate={{ scale: 1.5, opacity: 0.7 }}
+          exit={{ scale: 0.1, opacity: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-9xl text-primary text-foreground font-bold"
+        >
+          {countdown[index]}
+        </motion.span>
+      </Card>
     </div>
   );
 };
