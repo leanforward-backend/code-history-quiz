@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { QuizQuestions } from "../quiz/quizQuestions";
 
 export const Timeline = ({
@@ -12,15 +12,21 @@ export const Timeline = ({
   onTimeUp?: () => void;
 }) => {
   const [elapsedTime, setElapsedTime] = useState("0:00");
+  const onTimeUpRef = useRef(onTimeUp);
 
   useEffect(() => {
-    let seconds = 0;
+    onTimeUpRef.current = onTimeUp;
+  }, [onTimeUp]);
+
+  useEffect(() => {
+    const startTime = Date.now();
     const interval = setInterval(() => {
-      seconds += 1;
+      const now = Date.now();
+      const seconds = Math.floor((now - startTime) / 1000);
 
       if (seconds > 180) {
         clearInterval(interval);
-        onTimeUp?.();
+        onTimeUpRef.current?.();
         return;
       }
 
@@ -31,7 +37,7 @@ export const Timeline = ({
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [onTimeUp]);
+  }, []);
 
   return (
     <div className="w-full max-w-[40rem]">
