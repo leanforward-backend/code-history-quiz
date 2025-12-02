@@ -32,24 +32,30 @@ export const Timeline = ({
 
   return (
     <div className="w-full max-w-[40rem]">
-      <div className="w-full flex flex-row justify-between text-sm text-gray-500 mb-4">
-        <h1 className="text-xl font-bold text-white">
-          {currentIndex + 1} of {QuizQuestions.length}
-        </h1>
-        <div className="flex flex-row gap-2 items-center">
-          <h1 className="text-xl font-bold text-primary">ELAPSED TIME</h1>
-          <h1 className="text-xl font-bold text-white">{elapsedTime}</h1>
-          <h1 className="text-md font-bold text-primary">/ 3:00</h1>
+      <motion.div
+        initial={{ opacity: 0, y: -80 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+      >
+        <div className="w-full flex flex-row justify-between text-sm text-gray-500 mb-4">
+          <h1 className="text-xl font-bold text-white">
+            {currentIndex + 1} of {QuizQuestions.length}
+          </h1>
+          <div className="flex flex-row gap-2 items-center">
+            <h1 className="text-xl font-bold text-primary">ELAPSED TIME</h1>
+            <h1 className="text-xl font-bold text-white">{elapsedTime}</h1>
+            <h1 className="text-md font-bold text-primary">/ 3:00</h1>
+          </div>
         </div>
-      </div>
-      <div className="w-full h-2 bg-white rounded-full mb-12 overflow-hidden">
-        <motion.div
-          className="h-full bg-red-500 rounded-full"
-          initial={{ width: "0%" }}
-          animate={{ width: `${quizProgress}%` }}
-          transition={{ duration: 2, ease: "easeInOut" }}
-        />
-      </div>
+        <div className="w-full h-2 bg-white rounded-full mb-12 overflow-hidden">
+          <motion.div
+            className="h-full bg-red-500 rounded-full"
+            initial={{ width: "0%" }}
+            animate={{ width: `${quizProgress}%` }}
+            transition={{ duration: 2, ease: "easeInOut" }}
+          />
+        </div>
+      </motion.div>
     </div>
   );
 };
