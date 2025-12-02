@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card";
 import { animate, motion, useMotionValue } from "motion/react";
 import { useState } from "react";
+import { Timeline } from "../timeline/timeline";
 import { QuizQuestions } from "./quizQuestions";
 
 export const QuizCard = () => {
@@ -49,75 +50,81 @@ export const QuizCard = () => {
   };
 
   return (
-    <div className="w-full flex justify-center" style={{ perspective: 1000 }}>
-      <motion.div
-        style={{
-          rotateY,
-          x,
-          opacity,
-          transformStyle: "preserve-3d",
-        }}
-        className="relative w-full max-w-[40rem] aspect-square"
-      >
-        <div
-          className="absolute w-full h-full backface-hidden"
-          style={{ backfaceVisibility: "hidden" }}
-        >
-          <Card className="w-full h-full">
-            <CardHeader>
-              <CardTitle className="text-center text-2xl font-bold mb-8">
-                Question {currentIndex + 1}
-              </CardTitle>
-              <CardDescription className="text-center text-3xl text-background mb-2">
-                {currentQuestion.question}
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="h-full flex flex-col justify-end pb-4 sm:pb-6">
-              <div className="flex flex-row gap-1 w-full justify-center px-2">
-                <Button
-                  variant="outline"
-                  className="flex-1 bg-primary text-white text-lg sm:text-2xl md:text-4xl h-12 sm:h-16 md:h-24 hover:bg-primary/90 hover:text-white"
-                  onClick={() => handleAnswer(true)}
-                >
-                  TRUE
-                </Button>
-                <Button
-                  variant="outline"
-                  className="flex-1 bg-primary text-white text-lg sm:text-2xl md:text-4xl h-12 sm:h-16 md:h-24 hover:bg-primary/90 hover:text-white"
-                  onClick={() => handleAnswer(false)}
-                >
-                  FALSE
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-        <div
-          className="absolute w-full h-full backface-hidden"
+    <>
+      <Timeline
+        currentIndex={currentIndex}
+        quizProgress={(currentIndex / QuizQuestions.length) * 100}
+      />
+      <div className="w-full flex justify-center" style={{ perspective: 1000 }}>
+        <motion.div
           style={{
-            backfaceVisibility: "hidden",
-            transform: "rotateY(180deg)",
+            rotateY,
+            x,
+            opacity,
+            transformStyle: "preserve-3d",
           }}
+          className="relative w-full max-w-[40rem] aspect-square"
         >
-          <Card
-            className={`w-full h-full ${
-              isCorrect ? "bg-green-400" : "bg-red-600"
-            }`}
+          <div
+            className="absolute w-full h-full backface-hidden"
+            style={{ backfaceVisibility: "hidden" }}
           >
-            <CardHeader className="h-full flex flex-col justify-center items-center">
-              <CardTitle className="text-center text-5xl font-bold mb-8 text-white mt-2">
-                {isCorrect ? "CORRECT!" : "INCORRECT"}
-              </CardTitle>
-              <CardDescription className="text-center text-3xl text-white mb-2">
-                The answer was {currentQuestion.answer ? "TRUE" : "FALSE"}
-                <p className="text-center text-2xl text-white mt-8">
-                  {currentQuestion.description}
-                </p>
-              </CardDescription>
-            </CardHeader>
-          </Card>
-        </div>
-      </motion.div>
-    </div>
+            <Card className="w-full h-full">
+              <CardHeader>
+                <CardTitle className="text-center text-2xl font-bold mb-8">
+                  Question {currentIndex + 1}
+                </CardTitle>
+                <CardDescription className="text-center text-3xl text-background mb-2">
+                  {currentQuestion.question}
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="h-full flex flex-col justify-end pb-4 sm:pb-6">
+                <div className="flex flex-row gap-1 w-full justify-center px-2">
+                  <Button
+                    variant="outline"
+                    className="flex-1 bg-primary text-white text-lg sm:text-2xl md:text-4xl h-12 sm:h-16 md:h-24 hover:bg-primary/90 hover:text-white"
+                    onClick={() => handleAnswer(true)}
+                  >
+                    TRUE
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="flex-1 bg-primary text-white text-lg sm:text-2xl md:text-4xl h-12 sm:h-16 md:h-24 hover:bg-primary/90 hover:text-white"
+                    onClick={() => handleAnswer(false)}
+                  >
+                    FALSE
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+          <div
+            className="absolute w-full h-full backface-hidden"
+            style={{
+              backfaceVisibility: "hidden",
+              transform: "rotateY(180deg)",
+            }}
+          >
+            <Card
+              className={`w-full h-full ${
+                isCorrect ? "bg-green-400" : "bg-red-600"
+              }`}
+            >
+              <CardHeader className="h-full flex flex-col justify-center items-center">
+                <CardTitle className="text-center text-5xl font-bold mb-8 text-white mt-2">
+                  {isCorrect ? "CORRECT!" : "INCORRECT"}
+                </CardTitle>
+                <CardDescription className="text-center text-3xl text-white mb-2">
+                  The answer was {currentQuestion.answer ? "TRUE" : "FALSE"}
+                  <p className="text-center text-2xl text-white mt-8">
+                    {currentQuestion.description}
+                  </p>
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          </div>
+        </motion.div>
+      </div>
+    </>
   );
 };

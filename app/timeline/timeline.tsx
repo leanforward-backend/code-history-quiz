@@ -1,0 +1,55 @@
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { QuizQuestions } from "../quiz/quizQuestions";
+
+export const Timeline = ({
+  currentIndex,
+  quizProgress,
+}: {
+  currentIndex: number;
+  quizProgress: number;
+}) => {
+  const [elapsedTime, setElapsedTime] = useState("0:00");
+
+  useEffect(() => {
+    let seconds = 0;
+    const interval = setInterval(() => {
+      seconds += 1;
+
+      if (seconds > 180) {
+        clearInterval(interval);
+        return;
+      }
+
+      const minutes = Math.floor(seconds / 60);
+      const secs = seconds % 60;
+      const formatted = `${minutes}:${secs.toString().padStart(2, "0")}`;
+      setElapsedTime(formatted);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="w-full max-w-[40rem]">
+      <div className="w-full flex flex-row justify-between text-sm text-gray-500 mb-4">
+        <h1 className="text-xl font-bold text-white">
+          {currentIndex + 1} of {QuizQuestions.length}
+        </h1>
+        <div className="flex flex-row gap-2 items-center">
+          <h1 className="text-xl font-bold text-primary">ELAPSED TIME</h1>
+          <h1 className="text-xl font-bold text-white">{elapsedTime}</h1>
+          <h1 className="text-md font-bold text-primary">/ 3:00</h1>
+        </div>
+      </div>
+      <div className="w-full h-2 bg-white rounded-full mb-12 overflow-hidden">
+        <motion.div
+          className="h-full bg-red-500 rounded-full"
+          initial={{ width: "0%" }}
+          animate={{ width: `${quizProgress}%` }}
+          transition={{ duration: 2, ease: "easeInOut" }}
+        />
+      </div>
+    </div>
+  );
+};
