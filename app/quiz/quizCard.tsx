@@ -39,11 +39,9 @@ export const QuizCard = () => {
   const handleTryAgain = async () => {
     setIsAnimating(true);
 
-    // Slide out current card
     await animate(x, [0, -200, 800], { duration: 0.8, ease: "easeInOut" });
     opacity.set(0);
 
-    // Reset state
     setGameState("playing");
     setCurrentIndex(0);
     setScore({ correct: 0, incorrect: 0 });
@@ -53,7 +51,6 @@ export const QuizCard = () => {
     x.set(-400);
     opacity.set(1);
 
-    // Slide in new card
     await animate(x, 0, { duration: 0.5, ease: "easeOut" });
     setIsAnimating(false);
   };
@@ -64,12 +61,12 @@ export const QuizCard = () => {
     setUserAnswer(answer);
 
     await animate(rotateY, [0, -35, 195, 180], {
-      duration: 0.2,
+      duration: 1.4,
       times: [0, 0.1, 0.75, 1],
       ease: [0.25, 0.46, 0.45, 1],
     });
 
-    await new Promise((resolve) => setTimeout(resolve, 2));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
 
     const newScore = {
       correct: score.correct + (answer === currentQuestion.answer ? 1 : 0),
