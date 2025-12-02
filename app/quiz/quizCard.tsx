@@ -72,18 +72,18 @@ export const QuizCard = () => {
                 {currentQuestion.question}
               </CardDescription>
             </CardHeader>
-            <CardContent className="h-full flex flex-col justify-end">
-              <div className="flex flex-row gap-1 w-full justify-center">
+            <CardContent className="h-full flex flex-col justify-end pb-4 sm:pb-6">
+              <div className="flex flex-row gap-1 w-full justify-center px-2">
                 <Button
                   variant="outline"
-                  className="w-1/2 bg-primary text-white text-4xl h-30 hover:bg-primary/90 hover:text-white"
+                  className="flex-1 bg-primary text-white text-lg sm:text-2xl md:text-4xl h-12 sm:h-16 md:h-24 hover:bg-primary/90 hover:text-white"
                   onClick={() => handleAnswer(true)}
                 >
                   TRUE
                 </Button>
                 <Button
                   variant="outline"
-                  className="w-1/2 bg-primary text-white text-4xl h-30 hover:bg-primary/90 hover:text-white"
+                  className="flex-1 bg-primary text-white text-lg sm:text-2xl md:text-4xl h-12 sm:h-16 md:h-24 hover:bg-primary/90 hover:text-white"
                   onClick={() => handleAnswer(false)}
                 >
                   FALSE
@@ -105,7 +105,7 @@ export const QuizCard = () => {
             }`}
           >
             <CardHeader className="h-full flex flex-col justify-center items-center">
-              <CardTitle className="text-center text-5xl font-bold mb-8 text-white">
+              <CardTitle className="text-center text-5xl font-bold mb-8 text-white mt-2">
                 {isCorrect ? "CORRECT!" : "INCORRECT"}
               </CardTitle>
               <CardDescription className="text-center text-3xl text-white mb-2">
