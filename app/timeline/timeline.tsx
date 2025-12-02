@@ -5,9 +5,11 @@ import { QuizQuestions } from "../quiz/quizQuestions";
 export const Timeline = ({
   currentIndex,
   quizProgress,
+  onTimeUp,
 }: {
   currentIndex: number;
   quizProgress: number;
+  onTimeUp?: () => void;
 }) => {
   const [elapsedTime, setElapsedTime] = useState("0:00");
 
@@ -18,6 +20,7 @@ export const Timeline = ({
 
       if (seconds > 180) {
         clearInterval(interval);
+        onTimeUp?.();
         return;
       }
 
@@ -28,7 +31,7 @@ export const Timeline = ({
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [onTimeUp]);
 
   return (
     <div className="w-full max-w-[40rem]">
